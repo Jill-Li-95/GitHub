@@ -100,7 +100,7 @@ function renderTodos() {
 function getEmptyMessage(visibleCount) {
   if (visibleCount > 0) return "";
   if (currentFilter === "active") return "目前沒有未完成的待辦事項。";
-  if (currentFilter === "completed") return "目前沒有已完成的待辦事項。";
+  if (currentFilter === "completed") return "目前沒有已完成的待辦事項，取消勾選的項目會出現在未完成清單。";
   return "還沒有任何待辦事項，新增一個吧!";
 }
 
