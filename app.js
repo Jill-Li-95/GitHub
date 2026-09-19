@@ -1,4 +1,6 @@
 const STORAGE_KEY = "offline-todo-list";
+const FILTER_STORAGE_KEY = "todo-filter";
+const VALID_FILTERS = ["all", "active", "completed"];
 
 const form = document.querySelector("#todo-form");
 const input = document.querySelector("#todo-input");
@@ -12,7 +14,7 @@ const filterButtons = document.querySelectorAll(".filter-button");
 const colorSchemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
 let todos = loadTodos();
-let currentFilter = "all";
+let currentFilter = loadFilter();
 
 // 優先使用使用者手動選擇的主題，否則依照作業系統設定初始化。
 function applyTheme(theme) {
@@ -45,6 +47,19 @@ function loadTodos() {
 // 儲存目前清單，讓重新整理頁面後仍能保留資料。
 function saveTodos() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+}
+
+function loadFilter() {
+  const savedFilter = localStorage.getItem(FILTER_STORAGE_KEY);
+  return VALID_FILTERS.includes(savedFilter) ? savedFilter : "all";
+}
+
+function updateFilterButtons() {
+  filterButtons.forEach((button) => {
+    const isActive = button.dataset.filter === currentFilter;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
 }
 
 function renderTodos() {
@@ -134,16 +149,14 @@ themeToggle.addEventListener("click", () => {
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     currentFilter = button.dataset.filter;
-    filterButtons.forEach((filterButton) => {
-      const isActive = filterButton === button;
-      filterButton.classList.toggle("active", isActive);
-      filterButton.setAttribute("aria-pressed", String(isActive));
-    });
+    localStorage.setItem(FILTER_STORAGE_KEY, currentFilter);
+    updateFilterButtons();
     renderTodos();
   });
 });
 
 applyTheme(getInitialTheme());
+updateFilterButtons();
 
 colorSchemeQuery.addEventListener("change", (event) => {
   if (!localStorage.getItem("todo-theme")) {
