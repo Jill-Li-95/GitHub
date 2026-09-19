@@ -1,0 +1,211 @@
+:root {
+  --color-background: #eef3f1;
+  --color-card: #ffffff;
+  --color-text: #253332;
+  --color-muted: #71807d;
+  --color-border: #dce6e2;
+  --color-primary: #207567;
+  --color-primary-dark: #185c52;
+  --color-accent: #f0b35b;
+  --color-danger: #bd6861;
+  --shadow-card: 0 18px 45px rgba(42, 71, 66, 0.12);
+  --radius-card: 22px;
+  --radius-control: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 32px 16px;
+  color: var(--color-text);
+  background: linear-gradient(135deg, #e9f1ee 0%, var(--color-background) 55%, #f8f4ec 100%);
+  font-family: Georgia, "Noto Serif TC", serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.todo-card {
+  width: min(100%, 520px);
+  margin: 0 auto;
+  padding: clamp(24px, 6vw, 42px);
+  background: var(--color-card);
+  border: 1px solid rgba(220, 230, 226, 0.8);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.todo-header {
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--color-primary);
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 7vw, 2.75rem);
+  line-height: 1.1;
+}
+
+.subtitle {
+  margin: 12px 0 0;
+  color: var(--color-muted);
+  font-size: 0.98rem;
+}
+
+.todo-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.todo-form input {
+  min-width: 0;
+  flex: 1;
+  padding: 13px 15px;
+  color: var(--color-text);
+  background: #fbfdfc;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.todo-form input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(32, 117, 103, 0.14);
+}
+
+.todo-form button {
+  padding: 0 19px;
+  color: #fff;
+  background: var(--color-primary);
+  border: 0;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.todo-form button:hover {
+  background: var(--color-primary-dark);
+}
+
+.todo-form button:active {
+  transform: translateY(1px);
+}
+
+.todo-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 54px;
+  padding: 10px 12px;
+  background: #f7faf8;
+  border: 1px solid #e6eeeb;
+  border-radius: 14px;
+}
+
+.todo-check {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.todo-text {
+  min-width: 0;
+  flex: 1;
+  overflow-wrap: anywhere;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.todo-item.completed .todo-text {
+  color: var(--color-muted);
+  text-decoration: line-through;
+  opacity: 0.65;
+}
+
+.delete-button {
+  flex: 0 0 auto;
+  padding: 7px 8px;
+  color: var(--color-danger);
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 0.82rem;
+}
+
+.delete-button:hover {
+  background: #fbeeed;
+}
+
+.empty-state {
+  margin: 34px 0;
+  color: var(--color-muted);
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.todo-footer {
+  margin-top: 24px;
+  padding-top: 17px;
+  color: var(--color-muted);
+  border-top: 1px solid var(--color-border);
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 0.86rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 420px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .todo-card {
+    padding: 25px 18px;
+    border-radius: 18px;
+  }
+
+  .todo-form button {
+    padding: 0 15px;
+  }
+}
